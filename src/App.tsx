@@ -46,7 +46,8 @@ export default function TreemapApp() {
     const segments = pathText.split('/').filter(Boolean);
     return segments.map((seg, idx) => (
       <span className="path-segment" key={idx}>
-        {seg}/
+        {seg}
+        {idx < segments.length - 1 && '/'}
       </span>
     ));
   }, [pathText]);
