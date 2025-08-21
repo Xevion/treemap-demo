@@ -1,4 +1,4 @@
-import { Box, Group, Slider, Stack, Text, Title } from '@mantine/core';
+import { Group, Slider, Text } from '@mantine/core';
 import type { TreemapControls } from '@/hooks/useTreemap';
 
 type Props = {
@@ -8,17 +8,15 @@ type Props = {
 
 export default function ControlsPanel({ controls, onChange }: Props) {
   return (
-    <Box mt="md" style={{ borderTop: '1px solid #444', paddingTop: 12 }}>
-      <Title order={4} c="teal.3">
-        Controls
-      </Title>
-      <Stack gap={10} mt={8} style={{ minWidth: 320 }}>
+    <div className="mt-3 pt-3 border-t border-gray-700 min-w-80">
+      <h4 className="text-teal-300 font-semibold">Controls</h4>
+      <div className="flex flex-col gap-2 mt-2">
         <div>
           <Group justify="space-between" mb={4} wrap="nowrap">
-            <Text size="sm" fw={500} className="metric-label">
+            <Text size="sm" fw={500} className="font-semibold text-teal-200">
               Target Nodes
             </Text>
-            <Text size="sm" className="metric-value">
+            <Text size="sm" className="text-teal-100">
               {controls.targetNodeCount.toLocaleString()}
             </Text>
           </Group>
@@ -35,10 +33,10 @@ export default function ControlsPanel({ controls, onChange }: Props) {
 
         <div>
           <Group justify="space-between" mb={4} wrap="nowrap">
-            <Text size="sm" fw={500} className="metric-label">
+            <Text size="sm" fw={500} className="font-semibold text-teal-200">
               Max Depth
             </Text>
-            <Text size="sm" className="metric-value">
+            <Text size="sm" className="text-teal-100">
               {controls.maxDepth}
             </Text>
           </Group>
@@ -54,10 +52,10 @@ export default function ControlsPanel({ controls, onChange }: Props) {
 
         <div>
           <Group justify="space-between" mb={4} wrap="nowrap">
-            <Text size="sm" fw={500} className="metric-label">
+            <Text size="sm" fw={500} className="font-semibold text-teal-200">
               Min Children / Node
             </Text>
-            <Text size="sm" className="metric-value">
+            <Text size="sm" className="text-teal-100">
               {controls.minChildrenPerNode}
             </Text>
           </Group>
@@ -73,10 +71,10 @@ export default function ControlsPanel({ controls, onChange }: Props) {
 
         <div>
           <Group justify="space-between" mb={4} wrap="nowrap">
-            <Text size="sm" fw={500} className="metric-label">
+            <Text size="sm" fw={500} className="font-semibold text-teal-200">
               Max Children / Node
             </Text>
-            <Text size="sm" className="metric-value">
+            <Text size="sm" className="text-teal-100">
               {controls.maxChildrenPerNode}
             </Text>
           </Group>
@@ -92,10 +90,10 @@ export default function ControlsPanel({ controls, onChange }: Props) {
 
         <div>
           <Group justify="space-between" mb={4} wrap="nowrap">
-            <Text size="sm" fw={500} className="metric-label">
+            <Text size="sm" fw={500} className="font-semibold text-teal-200">
               Branch Probability
             </Text>
-            <Text size="sm" className="metric-value">
+            <Text size="sm" className="text-teal-100">
               {Math.round(controls.branchProbability * 100)}%
             </Text>
           </Group>
@@ -111,10 +109,10 @@ export default function ControlsPanel({ controls, onChange }: Props) {
 
         <div>
           <Group justify="space-between" mb={4} wrap="nowrap">
-            <Text size="sm" fw={500} className="metric-label">
+            <Text size="sm" fw={500} className="font-semibold text-teal-200">
               Seed
             </Text>
-            <Text size="sm" className="metric-value">
+            <Text size="sm" className="text-teal-100">
               {controls.seed}
             </Text>
           </Group>
@@ -127,7 +125,7 @@ export default function ControlsPanel({ controls, onChange }: Props) {
             color="teal"
           />
         </div>
-      </Stack>
-    </Box>
+      </div>
+    </div>
   );
 }

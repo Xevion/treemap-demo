@@ -1,4 +1,3 @@
-import { Title } from '@mantine/core';
 import type { TreemapMetrics } from '@/hooks/useTreemap';
 import { useMemo } from 'react';
 
@@ -12,7 +11,7 @@ export default function MetricsPanel({ metrics, pathText }: Props) {
     if (!pathText) return null;
     const segments = pathText.split('/').filter(Boolean);
     return segments.map((seg, idx) => (
-      <span className="path-segment" key={idx}>
+      <span className="whitespace-nowrap" key={idx}>
         {seg}
         {idx < segments.length - 1 && '/'}
       </span>
@@ -20,40 +19,45 @@ export default function MetricsPanel({ metrics, pathText }: Props) {
   }, [pathText]);
 
   return (
-    <div id="metrics-overlay" style={{ display: 'block' }}>
-      <Title order={4} c="teal.3">
-        Performance Metrics
-      </Title>
-      <div className="metric-item">
-        <span className="metric-label">Data Generation Time:</span>
-        <span className="metric-value" id="generation-time">
+    <div>
+      <h4 className="text-teal-300 font-semibold mb-2">Performance Metrics</h4>
+      <div className="mb-2">
+        <span className="font-semibold text-teal-200">
+          Data Generation Time:
+        </span>
+        <span className="text-teal-100 ml-1" id="generation-time">
           {metrics.generationMs.toFixed(2)}
         </span>{' '}
         ms
       </div>
-      <div className="metric-item">
-        <span className="metric-label">Initial Render Time:</span>
-        <span className="metric-value" id="render-time">
+      <div className="mb-2">
+        <span className="font-semibold text-teal-200">
+          Initial Render Time:
+        </span>
+        <span className="text-teal-100 ml-1" id="render-time">
           {metrics.layoutMs.toFixed(2)}
         </span>{' '}
         ms
       </div>
-      <div className="metric-item">
-        <span className="metric-label">Total Nodes:</span>
-        <span className="metric-value" id="node-count">
+      <div className="mb-2">
+        <span className="font-semibold text-teal-200">Total Nodes:</span>
+        <span className="text-teal-100 ml-1" id="node-count">
           {metrics.nodeCount.toLocaleString()}
         </span>
       </div>
-      <div className="metric-item">
-        <span className="metric-label">Max Depth:</span>
-        <span className="metric-value" id="max-depth">
+      <div className="mb-2">
+        <span className="font-semibold text-teal-200">Max Depth:</span>
+        <span className="text-teal-100 ml-1" id="max-depth">
           {metrics.maxDepth}
         </span>
       </div>
 
-      <div id="selected-path">
-        <div className="metric-label">Selected Path:</div>
-        <div className="path-text metric-value" id="path-display">
+      <div className="mt-4 pt-4 border-t border-gray-700">
+        <div className="font-semibold text-teal-200">Selected Path:</div>
+        <div
+          className="text-teal-100 break-words max-w-[350px]"
+          id="path-display"
+        >
           {renderedPath}
         </div>
       </div>

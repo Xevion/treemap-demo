@@ -1,80 +1,10 @@
-body {
-  margin: 0;
-  padding: 0;
-  font-family: 'Arial', sans-serif;
-  background: #000;
-  overflow: hidden;
-}
+@import 'tailwindcss';
 
-#container {
-  position: relative;
-  width: 100vw;
-  height: 100vh;
-}
-
+/* Keep only essential non-utility overrides for DeckGL canvas */
 canvas {
   position: absolute !important;
   top: 0 !important;
   left: 0 !important;
   width: 100% !important;
   height: 100% !important;
-}
-
-#metrics-overlay {
-  position: absolute;
-  top: 20px;
-  left: 20px;
-  background: rgba(0, 0, 0, 0.8);
-  color: #e6faf7;
-  padding: 15px;
-  border-radius: 8px;
-  font-size: 14px;
-  line-height: 1.6;
-  z-index: 1000;
-  min-width: 300px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-}
-
-#metrics-overlay h3 {
-  margin: 0 0 10px 0;
-  font-size: 16px;
-  color: #4caf50;
-}
-
-.metric-item {
-  margin-bottom: 8px;
-}
-
-.metric-label {
-  font-weight: 600;
-  color: #a7f3d0;
-}
-
-.metric-value {
-  color: #b2f5ea;
-}
-
-#selected-path {
-  margin-top: 15px;
-  padding-top: 15px;
-  border-top: 1px solid #444;
-}
-
-.path-text {
-  word-wrap: break-word;
-  max-width: 350px;
-}
-
-.path-segment {
-  white-space: nowrap;
-}
-
-#loading {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: white;
-  font-size: 18px;
-  z-index: 999;
 }

@@ -1,11 +1,12 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { resolve } from 'path';
+import tailwindcss from '@tailwindcss/vite';
 
 const BASE_PATH = process.env.BASE_PATH || '/';
 
 export default defineConfig({
-  plugins: [react()],
+  plugins: [react(), tailwindcss()],
   base: BASE_PATH,
   build: {
     chunkSizeWarningLimit: 750,
