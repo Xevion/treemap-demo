@@ -25,7 +25,7 @@ canvas {
   top: 20px;
   left: 20px;
   background: rgba(0, 0, 0, 0.8);
-  color: white;
+  color: #e6faf7;
   padding: 15px;
   border-radius: 8px;
   font-size: 14px;
@@ -46,12 +46,12 @@ canvas {
 }
 
 .metric-label {
-  font-weight: bold;
-  color: #81c784;
+  font-weight: 600;
+  color: #a7f3d0;
 }
 
 .metric-value {
-  color: #e8f5e8;
+  color: #b2f5ea;
 }
 
 #selected-path {
@@ -63,6 +63,10 @@ canvas {
 .path-text {
   word-wrap: break-word;
   max-width: 350px;
+}
+
+.path-segment {
+  white-space: nowrap;
 }
 
 #loading {

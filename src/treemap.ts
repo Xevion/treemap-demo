@@ -55,6 +55,8 @@ export class TreeNode {
   }
 }
 
+import seedrandom from 'seedrandom';
+
 export type TreemapMetrics = {
   nodeCount: number;
   maxDepth: number;
@@ -62,40 +64,61 @@ export type TreemapMetrics = {
   layoutMs: number;
 };
 
-export function generateHierarchicalData(): {
+export type DataGenerationOptions = {
+  targetNodeCount?: number;
+  maxDepth?: number;
+  minChildrenPerNode?: number;
+  maxChildrenPerNode?: number;
+  branchProbability?: number; // 0..1 chance that a child gets its own children
+  seed?: number; // deterministic PRNG seed
+};
+
+export function generateHierarchicalData(options: DataGenerationOptions = {}): {
   root: TreeNode;
   metrics: Pick<TreemapMetrics, 'nodeCount' | 'maxDepth' | 'generationMs'>;
 } {
   const start = performance.now();
 
+  const {
+    targetNodeCount = 15000,
+    maxDepth: maxDepthLimit = 8,
+    minChildrenPerNode = 2,
+    maxChildrenPerNode = 8,
+    branchProbability = 0.6,
+    seed = 1,
+  } = options;
+
+  // Deterministic PRNG using seedrandom
+  const rng = seedrandom(String(seed));
+
   const root = new TreeNode('root', 0, 0);
   let totalNodes = 1;
-  let maxDepth = 0;
+  let observedMaxDepth = 0;
 
   const generateSubtree = (
     parent: TreeNode,
     currentDepth: number,
     remainingNodes: number
   ): number => {
-    if (remainingNodes <= 0 || currentDepth > 8) return 0;
+    if (remainingNodes <= 0 || currentDepth >= maxDepthLimit) return 0;
 
-    const numChildren = Math.min(
-      Math.floor(Math.random() * 7) + 2,
-      remainingNodes
-    );
+    const randomizedChildrenCount =
+      Math.floor(rng() * (maxChildrenPerNode - minChildrenPerNode + 1)) +
+      minChildrenPerNode;
+    const numChildren = Math.min(randomizedChildrenCount, remainingNodes);
     let usedNodes = 0;
 
     for (let i = 0; i < numChildren && usedNodes < remainingNodes; i++) {
       const childName = `node_${totalNodes}`;
-      const childValue = Math.floor(Math.random() * 100) + 10;
+      const childValue = Math.floor(rng() * 100) + 10;
       const child = new TreeNode(childName, childValue, currentDepth + 1);
 
       parent.addChild(child);
       totalNodes++;
       usedNodes++;
-      maxDepth = Math.max(maxDepth, currentDepth + 1);
+      observedMaxDepth = Math.max(observedMaxDepth, currentDepth + 1);
 
-      if (Math.random() > 0.4 && currentDepth < 6) {
+      if (rng() < branchProbability && currentDepth + 1 < maxDepthLimit) {
         const childrenToGenerate = Math.floor(
           (remainingNodes - usedNodes) / numChildren
         );
@@ -110,9 +133,9 @@ export function generateHierarchicalData(): {
   };
 
   let attempts = 0;
-  while (totalNodes < 15000 && attempts < 10) {
+  while (totalNodes < targetNodeCount && attempts < 10) {
     const nodesToGenerate =
-      15000 - totalNodes + Math.floor(Math.random() * 5000);
+      targetNodeCount - totalNodes + Math.floor(rng() * 5000);
     generateSubtree(root, 0, nodesToGenerate);
     attempts++;
   }
@@ -121,7 +144,11 @@ export function generateHierarchicalData(): {
 
   return {
     root,
-    metrics: { nodeCount: totalNodes, maxDepth, generationMs },
+    metrics: {
+      nodeCount: totalNodes,
+      maxDepth: observedMaxDepth,
+      generationMs,
+    },
   };
 }
 
@@ -210,7 +237,11 @@ export function screenToNormalized(x: number, y: number): Coordinate {
   return [longitude, latitude];
 }
 
-export function getColorForDepth(depth: number): ColorTuple {
+export function getColorForDepth(
+  depth: number,
+  key?: string,
+  seed: number = 1
+): ColorTuple {
   const colors: ColorTuple[] = [
     [255, 87, 87, 200],
     [255, 193, 7, 200],
@@ -223,20 +254,17 @@ export function getColorForDepth(depth: number): ColorTuple {
     [96, 125, 139, 200],
   ];
   const baseColor = colors[depth % colors.length];
-  const variation = 30;
+  if (!key) return baseColor;
+  // Deterministic jitter based on seed and key
+  const jitterRng = seedrandom(`${seed}:${key}`);
+  const variation = 24; // +/- 24 variation
+  const v1 = (jitterRng() - 0.5) * 2 * variation;
+  const v2 = (jitterRng() - 0.5) * 2 * variation;
+  const v3 = (jitterRng() - 0.5) * 2 * variation;
   return [
-    Math.max(
-      0,
-      Math.min(255, baseColor[0] + (Math.random() - 0.5) * variation)
-    ),
-    Math.max(
-      0,
-      Math.min(255, baseColor[1] + (Math.random() - 0.5) * variation)
-    ),
-    Math.max(
-      0,
-      Math.min(255, baseColor[2] + (Math.random() - 0.5) * variation)
-    ),
+    Math.max(0, Math.min(255, baseColor[0] + v1)),
+    Math.max(0, Math.min(255, baseColor[1] + v2)),
+    Math.max(0, Math.min(255, baseColor[2] + v3)),
     baseColor[3],
   ];
 }

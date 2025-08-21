@@ -1,6 +1,8 @@
 import { createRoot } from 'react-dom/client';
 import App from './App';
 import './styles.css';
+import '@mantine/core/styles.css';
+import { MantineProvider } from '@mantine/core';
 
 const container = document.getElementById('container');
 if (!container) {
@@ -8,4 +10,11 @@ if (!container) {
 }
 
 const root = createRoot(container);
-root.render(<App />);
+root.render(
+  <MantineProvider
+    defaultColorScheme="dark"
+    theme={{ primaryColor: 'teal', defaultRadius: 'md' }}
+  >
+    <App />
+  </MantineProvider>
+);
