@@ -37,6 +37,8 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Build project
+        env:
+          BASE_PATH: /treemap-demo/
         run: pnpm build
 
       - name: Setup Pages
