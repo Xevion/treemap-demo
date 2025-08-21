@@ -8,7 +8,7 @@ type Props = {
 
 export default function ControlsPanel({ controls, onChange }: Props) {
   return (
-    <div className="mt-3 pt-3 border-t border-gray-700 min-w-80">
+    <div className="mt-3 pt-3 border-t border-gray-700">
       <div className="flex flex-col gap-2 m-2">
         <div>
           <Group justify="space-between" mb={4} wrap="nowrap">
