@@ -1,4 +1,5 @@
 @import 'tailwindcss';
+@import '@mantine/core/styles.css';
 
 /* Keep only essential non-utility overrides for DeckGL canvas */
 canvas {

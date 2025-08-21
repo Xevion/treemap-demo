@@ -9,11 +9,10 @@ type Props = {
 export default function ControlsPanel({ controls, onChange }: Props) {
   return (
     <div className="mt-3 pt-3 border-t border-gray-700 min-w-80">
-      <h4 className="text-teal-300 font-semibold">Controls</h4>
-      <div className="flex flex-col gap-2 mt-2">
+      <div className="flex flex-col gap-2 m-2">
         <div>
           <Group justify="space-between" mb={4} wrap="nowrap">
-            <Text size="sm" fw={500} className="font-semibold text-teal-200">
+            <Text size="sm" fw={500} className="font-semibold text-teal-100">
               Target Nodes
             </Text>
             <Text size="sm" className="text-teal-100">

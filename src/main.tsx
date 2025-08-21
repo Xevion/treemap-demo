@@ -1,7 +1,6 @@
 import { createRoot } from 'react-dom/client';
 import App from './App';
 import './styles.css';
-import '@mantine/core/styles.css';
 import { MantineProvider } from '@mantine/core';
 
 const container = document.getElementById('container');

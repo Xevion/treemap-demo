@@ -63,8 +63,7 @@ export default function TreemapApp() {
 
   return (
     <>
-      <div id="loading" className="hidden" />
-      <div className="absolute top-5 left-5 z-[1000] min-w-72 rounded-md bg-black/80 text-teal-100 p-4 shadow-md">
+      <div className="absolute top-5 left-5 z-[1000] min-w-72 rounded-md bg-black/80 p-4 shadow-md text-zinc-100">
         <MetricsPanel metrics={metrics} pathText={pathText} />
         <ControlsPanel controls={controls} onChange={handleControlChange} />
       </div>
