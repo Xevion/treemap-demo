@@ -268,3 +268,13 @@ export function getColorForDepth(
     baseColor[3],
   ];
 }
+
+// Rectangle data used by rendering layers
+export type RectangleData = {
+  id: number;
+  polygon: Coordinate[];
+  depth: number;
+  node: TreeNode;
+  path: string;
+  color: ColorTuple;
+};
