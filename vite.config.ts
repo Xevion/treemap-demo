@@ -8,6 +8,7 @@ export default defineConfig({
   plugins: [react()],
   base: BASE_PATH,
   build: {
+    chunkSizeWarningLimit: 750,
     outDir: 'dist',
     emptyOutDir: true,
     rollupOptions: {
@@ -30,6 +31,7 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': resolve(__dirname, 'src'),
+      child_process: resolve(__dirname, 'src/shims/child_process.ts'),
     },
   },
 });
