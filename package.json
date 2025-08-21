@@ -1,8 +1,9 @@
 {
-  "name": "deckgl-treemap-demo",
-  "version": "1.0.0",
-  "description": "High-performance hierarchical treemap visualization using Deck.gl with 15,000+ nodes",
+  "name": "treemap-demo",
+  "version": "0.2.0",
+  "description": "High-performance hierarchical treemap visualization demo using Deck.gl",
   "type": "module",
+  "private": true,
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
@@ -23,10 +24,11 @@
     "performance",
     "typescript",
     "webgl",
-    "vite"
+    "vite",
+    "react"
   ],
   "author": "Xevion",
-  "license": "GNU GPLv3",
+  "license": "GPL-3.0-or-later",
   "devDependencies": {
     "@commitlint/cli": "^19.8.1",
     "@commitlint/config-conventional": "^19.8.1",
@@ -67,7 +69,7 @@
     "seedrandom": "^3.0.5"
   },
   "engines": {
-    "node": ">=16"
+    "node": ">=22"
   },
   "packageManager": "pnpm@9.12.1",
   "lint-staged": {
