@@ -328,7 +328,6 @@ class TreemapVisualization {
       getLineColor: [255, 255, 255, 80],
       getLineWidth: 1,
       pickable: true,
-      onClick: this.handleClick.bind(this),
       onHover: this.handleHover.bind(this),
       autoHighlight: true,
       highlightColor: [255, 255, 255, 100],
@@ -386,22 +385,6 @@ class TreemapVisualization {
     ];
   }
 
-  // Handle click events on treemap rectangles
-  private handleClick(info: PickingInfo): void {
-    if (!info.object) return;
-
-    const clickedNode = info.object.node;
-    const path = clickedNode.getPath();
-
-    console.log('Clicked node:', clickedNode.name, 'Path:', path);
-
-    // Update path display
-    const pathDisplay = document.getElementById('path-display');
-    if (pathDisplay) {
-      pathDisplay.textContent = path;
-    }
-  }
-
   // Handle hover events on treemap rectangles
   private handleHover(info: PickingInfo): void {
     if (info.object) {
@@ -409,6 +392,12 @@ class TreemapVisualization {
       const canvas = this.deck?.getCanvas();
       if (canvas) {
         canvas.style.cursor = 'pointer';
+      }
+
+      // Update path display immediately on hover
+      const pathDisplay = document.getElementById('path-display');
+      if (pathDisplay) {
+        pathDisplay.textContent = info.object.path;
       }
     } else {
       // Reset cursor when not hovering over anything
